@@ -1,6 +1,5 @@
-package com.gentalha.config.network
+package com.gentalha.motiveme.common.network
 
-import com.gentalha.motiveme.common.network.ApiKeyInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -1,6 +1,6 @@
 package com.gentalha.motiveme.feature.quote.remote.di
 
-import com.gentalha.config.network.ServiceBuilder
+import com.gentalha.motiveme.common.network.ServiceBuilder
 import com.gentalha.motiveme.feature.quote.remote.service.OpenAIService
 import dagger.Module
 import dagger.Provides
