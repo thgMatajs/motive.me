@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -21,11 +26,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.gentalha.motiveme.feature.quote.presentation.model.MessageUiState
 import com.gentalha.motiveme.feature.quote.presentation.viewmodel.MessageViewModel
+import com.gentalha.motiveme.ui.theme.GreyNeutral
+import com.gentalha.motiveme.ui.theme.Lemon
 import com.gentalha.motiveme.ui.theme.MotiveMeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,9 +50,8 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    color = MaterialTheme.colorScheme.background
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp),
                 ) {
                     Greeting(viewModel)
                 }
@@ -63,14 +72,16 @@ fun Greeting(viewModel: MessageViewModel, modifier: Modifier = Modifier) {
         when (message) {
             is MessageUiState.Loading -> LoadingScreen(modifier = modifier)
             is MessageUiState.Success -> {
-                TextScreen((message as MessageUiState.Success).text, modifier)
+                TextScreen((message as MessageUiState.Success).text,
+//                    modifier
+                )
 
             }
 
             is MessageUiState.Failure -> {
                 TextScreen(
                     "ERRO: ${(message as MessageUiState.Failure).error.localizedMessage}",
-                    modifier
+//                    modifier
                 )
             }
 
@@ -101,30 +112,27 @@ fun LoadingScreen(message: String = "Loading...", modifier: Modifier) {
         }
     }
 }
-
+@Preview
 @Composable
-fun TextScreen(text: String, modifier: Modifier) {
-    Box(
+fun TextScreen(text: String = "Uma frase muito bonita esta aqui!!") {
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight()
             .padding(8.dp, 8.dp),
-        contentAlignment = Alignment.Center,
+        colors = CardDefaults.cardColors(
+            containerColor = Lemon
+        )
     ) {
         Text(
             text = text,
+            style = TextStyle(
+                fontSize = 18.sp,
+                color = GreyNeutral
+            ),
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(all = 8.dp),
+            modifier = Modifier.padding(all = 24.dp),
         )
     }
-}
-
-@Composable
-fun Quote(message: String, modifier: Modifier = Modifier) {
-    Text(
-        text = message,
-        modifier = modifier
-    )
 }
 
 @Preview(showBackground = true)
