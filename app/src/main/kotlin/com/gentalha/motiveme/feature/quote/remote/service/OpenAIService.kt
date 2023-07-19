@@ -9,5 +9,5 @@ import retrofit2.http.POST
 interface OpenAIService {
 
     @POST("v1/completions")
-    suspend fun getCompletions(@Body prompt: OpenAIPrompt): Response<OpenAIResponse>
+    suspend fun getCompletions(@Body prompt: OpenAIPrompt): OpenAIResponse
 }

@@ -77,6 +77,9 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:hilt-android2.46.1'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.46.1'
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
+
 }
 
 kapt {
