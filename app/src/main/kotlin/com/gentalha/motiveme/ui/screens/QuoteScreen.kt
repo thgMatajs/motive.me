@@ -24,14 +24,13 @@ fun QuoteScreen(viewModel: MessageViewModel, modifier: Modifier = Modifier) {
             is MessageUiState.Success -> {
                 QuoteConstraint(
                     (message as MessageUiState.Success).text
-                )
-
+                ) { viewModel.getMessage() }
             }
 
             is MessageUiState.Failure -> {
                 QuoteConstraint(
                     "ERRO: ${(message as MessageUiState.Failure).error.localizedMessage}"
-                )
+                ) { viewModel.getMessage() }
             }
 
             else -> {

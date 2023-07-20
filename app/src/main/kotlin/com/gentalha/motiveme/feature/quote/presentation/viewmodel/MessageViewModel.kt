@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gentalha.motiveme.feature.quote.cache.QuoteCache
 import com.gentalha.motiveme.feature.quote.data.OpenAIRepository
 import com.gentalha.motiveme.feature.quote.presentation.model.MessageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +28,7 @@ class MessageViewModel @Inject constructor(
                     _uiState.postValue(MessageUiState.Success(it.choices.first().text))
                 }
                 .onFailure {
-                    _uiState.postValue(MessageUiState.Failure(it))
+                    _uiState.postValue(MessageUiState.Success(QuoteCache.frasesPositivas.random()))
                 }
         }
     }
