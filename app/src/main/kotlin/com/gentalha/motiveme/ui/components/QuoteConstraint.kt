@@ -18,21 +18,24 @@ import com.gentalha.motiveme.ui.theme.Black
 @Composable
 fun QuoteConstraint(
     quote: String = QuoteCache.frasesPositivas.random(),
-    newQuoteClick: () -> Unit = {}
+    newQuoteClick: () -> Unit = {},
+    favoriteOnClick: (Boolean) -> Unit = {},
+    shareOnClick: (String) -> Unit = {}
 ) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (quoteCard, refreshBtn) = createRefs()
 
-        QuoteCard(modifier = Modifier.constrainAs(quoteCard) {
-            top.linkTo(parent.top)
-            start.linkTo(parent.start, margin = 16.dp)
-            end.linkTo(parent.end, margin = 16.dp)
-            bottom.linkTo(refreshBtn.top)
-            width = Dimension.fillToConstraints
-        },
+        QuoteCard(
+            modifier = Modifier.constrainAs(quoteCard) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start, margin = 16.dp)
+                end.linkTo(parent.end, margin = 16.dp)
+                bottom.linkTo(refreshBtn.top)
+                width = Dimension.fillToConstraints
+            },
             text = quote,
-            favoriteOnClick = { println("THG_LOG -->$it") },
-            sharedOnClick = { println("THG_LOG -->$it") }
+            favoriteOnClick = (favoriteOnClick),
+            sharedOnClick = (shareOnClick)
         )
 
         FloatingActionButton(
