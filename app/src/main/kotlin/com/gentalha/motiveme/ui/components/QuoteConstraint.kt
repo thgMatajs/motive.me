@@ -23,13 +23,17 @@ fun QuoteConstraint(
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (quoteCard, refreshBtn) = createRefs()
 
-        QuoteCard(text = quote, modifier = Modifier.constrainAs(quoteCard) {
+        QuoteCard(modifier = Modifier.constrainAs(quoteCard) {
             top.linkTo(parent.top)
             start.linkTo(parent.start, margin = 16.dp)
             end.linkTo(parent.end, margin = 16.dp)
-            bottom.linkTo(parent.bottom)
+            bottom.linkTo(refreshBtn.top)
             width = Dimension.fillToConstraints
-        })
+        },
+            text = quote,
+            favoriteOnClick = { println("THG_LOG -->$it") },
+            sharedOnClick = { println("THG_LOG -->$it") }
+        )
 
         FloatingActionButton(
             onClick = { newQuoteClick.invoke() },
