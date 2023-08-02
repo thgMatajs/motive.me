@@ -31,7 +31,7 @@ import com.gentalha.motiveme.ui.theme.Pink80
 @Composable
 fun QuoteCard(
     modifier: Modifier = Modifier,
-    text: String = QuoteCache.frasesPositivas.random(),
+    text: String = QuoteCache.positiveMessages.random().message,
     favoriteOnClick: (Boolean) -> Unit,
     sharedOnClick: (String) -> Unit
 ) {
@@ -52,22 +52,22 @@ fun QuoteCard(
         ) {
             val (quoteText, favoriteBtn, shareBtn) = createRefs()
             Text(
-                text = "\" \n \n $text \n \n \"",
+                text = "\" \n $text \n \"",
                 style = TextStyle(
                     fontFamily = FontFamily.Serif,
                     fontWeight = FontWeight.Bold,
                     fontStyle = FontStyle.Italic,
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     color = GreyNeutral,
                     lineHeight = 30.sp
                 ),
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .constrainAs(quoteText) {
-                        top.linkTo(parent.top)
+                        top.linkTo(parent.top, margin = 16.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                        bottom.linkTo(favoriteBtn.top)
+                        bottom.linkTo(favoriteBtn.top, margin = 16.dp)
                     }
             )
             FavoriteButton(

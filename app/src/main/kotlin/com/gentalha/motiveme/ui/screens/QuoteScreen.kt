@@ -26,7 +26,7 @@ fun QuoteScreen(viewModel: MessageViewModel, modifier: Modifier = Modifier) {
             is MessageUiState.Loading -> CircularLoading(modifier = modifier)
             is MessageUiState.Success -> {
                 QuoteConstraint(
-                    (message as MessageUiState.Success).text,
+                    (message as MessageUiState.Success).quote.message,
                     shareOnClick = { context.sharedMessage(it) },
                     newQuoteClick = { viewModel.getMessage() }
                 )

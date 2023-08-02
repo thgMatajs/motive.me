@@ -88,7 +88,6 @@ dependencies {
     //endregion
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta"
 
-
 }
 
 kapt {

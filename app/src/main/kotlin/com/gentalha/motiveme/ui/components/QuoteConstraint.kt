@@ -21,7 +21,7 @@ import com.gentalha.motiveme.ui.theme.Black
 @Preview(showBackground = true)
 @Composable
 fun QuoteConstraint(
-    quote: String = QuoteCache.frasesPositivas.random(),
+    quote: String = QuoteCache.positiveMessages.random().message,
     newQuoteClick: () -> Unit = {},
     favoriteOnClick: (Boolean) -> Unit = {},
     shareOnClick: (String) -> Unit = {},
@@ -46,7 +46,7 @@ fun QuoteConstraint(
         )
 
         FloatingActionButton(
-            onClick = { newQuoteClick(); showSnackBar = !showSnackBar },
+            onClick = { newQuoteClick() },
             modifier = Modifier.constrainAs(refreshBtn) {
                 bottom.linkTo(if (showSnackBar) snackBar.top else parent.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
