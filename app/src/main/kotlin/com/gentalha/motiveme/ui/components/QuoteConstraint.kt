@@ -6,6 +6,10 @@ import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,10 +24,13 @@ fun QuoteConstraint(
     quote: String = QuoteCache.frasesPositivas.random(),
     newQuoteClick: () -> Unit = {},
     favoriteOnClick: (Boolean) -> Unit = {},
-    shareOnClick: (String) -> Unit = {}
+    shareOnClick: (String) -> Unit = {},
+    showSnack: Boolean = false,
+    snackBarMessage: String = ""
 ) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (quoteCard, refreshBtn) = createRefs()
+        var showSnackBar by remember { mutableStateOf(showSnack) }
+        val (quoteCard, refreshBtn, snackBar) = createRefs()
 
         QuoteCard(
             modifier = Modifier.constrainAs(quoteCard) {
@@ -39,9 +46,9 @@ fun QuoteConstraint(
         )
 
         FloatingActionButton(
-            onClick = { newQuoteClick.invoke() },
+            onClick = { newQuoteClick(); showSnackBar = !showSnackBar },
             modifier = Modifier.constrainAs(refreshBtn) {
-                bottom.linkTo(parent.bottom, margin = 24.dp)
+                bottom.linkTo(if (showSnackBar) snackBar.top else parent.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }) {
@@ -50,6 +57,18 @@ fun QuoteConstraint(
                 tint = Black,
                 contentDescription = "new quote"
             )
+        }
+
+        RetrySnackBar(
+            message = snackBarMessage,
+            isShow = showSnackBar,
+            modifier = Modifier.constrainAs(snackBar) {
+                bottom.linkTo(parent.bottom, margin = 16.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        ) {
+            showSnackBar = !showSnackBar
         }
     }
 }
