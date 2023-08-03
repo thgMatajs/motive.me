@@ -7,8 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.gentalha.motiveme.feature.quote.cache.QuoteCache
 import com.gentalha.motiveme.feature.quote.data.OpenAIRepository
 import com.gentalha.motiveme.feature.quote.presentation.model.MessageUiState
-import com.gentalha.motiveme.feature.quote.presentation.model.QuoteModel
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,10 +25,8 @@ class MessageViewModel @Inject constructor(
             _uiState.postValue(MessageUiState.Loading)
             runCatching { repository.getMessage("") }
                 .onSuccess {
-                    val json = it.choices.first().text
-                    val quote = Gson().fromJson(json, QuoteModel::class.java)
-                    println("THG_LOG --> QUOTE: $quote")
-                    _uiState.postValue(MessageUiState.Success(quote))
+                    println("THG_LOG --> QUOTE: $it")
+                    _uiState.postValue(MessageUiState.Success(it))
                 }
                 .onFailure {
                     println("THG_LOG --> ERRO: ${it.message}")

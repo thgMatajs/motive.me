@@ -18,7 +18,7 @@ object CacheModule {
     @Provides
     @Singleton
     fun provideQuoteDatabase(@ApplicationContext context: Context): QuoteDatabase {
-        return Room.databaseBuilder(context, QuoteDatabase::class.java, "quotes.db").build()
+        return Room.databaseBuilder(context, QuoteDatabase::class.java, "quotes-db").build()
     }
 
     @Provides
