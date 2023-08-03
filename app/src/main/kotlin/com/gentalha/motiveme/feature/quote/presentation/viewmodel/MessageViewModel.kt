@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.gentalha.motiveme.feature.quote.cache.QuoteCache
 import com.gentalha.motiveme.feature.quote.data.OpenAIRepository
 import com.gentalha.motiveme.feature.quote.presentation.model.MessageUiState
+import com.gentalha.motiveme.feature.quote.presentation.model.QuoteModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,6 +37,12 @@ class MessageViewModel @Inject constructor(
                         )
                     )
                 }
+        }
+    }
+
+    fun update(quote: QuoteModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.update(quote)
         }
     }
 }

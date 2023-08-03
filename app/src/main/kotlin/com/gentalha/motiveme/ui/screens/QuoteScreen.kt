@@ -25,10 +25,12 @@ fun QuoteScreen(viewModel: MessageViewModel, modifier: Modifier = Modifier) {
         when (message) {
             is MessageUiState.Loading -> CircularLoading(modifier = modifier)
             is MessageUiState.Success -> {
+                val quote = (message as MessageUiState.Success).quote
                 QuoteConstraint(
-                    (message as MessageUiState.Success).quote.message,
+                    quote,
                     shareOnClick = { context.sharedMessage(it) },
-                    newQuoteClick = { viewModel.getMessage() }
+                    newQuoteClick = { viewModel.getMessage() },
+                    favoriteOnClick = { viewModel.update(quote.copy(isFavorite = it)) }
                 )
             }
 

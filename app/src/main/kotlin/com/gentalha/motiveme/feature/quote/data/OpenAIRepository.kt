@@ -22,7 +22,16 @@ class OpenAIRepository @Inject constructor(
             quoteDao.get().random().toModel()
         }
     }
+
+    suspend fun update(quoteModel: QuoteModel) {
+        kotlin.runCatching { quoteDao.update(quoteModel.toCache()) }
+            .onSuccess { println("THG_LOG CACHE_UPDATE --> SUCCESS") }
+            .onFailure { println("THG_LOG CACHE_UPDATE --> ERROR") }
+    }
 }
 
 fun QuoteCacheModel.toModel() =
     QuoteModel(this.id, this.message, this.author, listOf(), this.isFavorite)
+
+fun QuoteModel.toCache() =
+    QuoteCacheModel(this.id, this.message, this.author, this.isFavorite)

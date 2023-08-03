@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.gentalha.motiveme.feature.quote.cache.QuoteCache
+import com.gentalha.motiveme.feature.quote.presentation.model.QuoteModel
 import com.gentalha.motiveme.ui.theme.Black
 import com.gentalha.motiveme.ui.theme.GreyBlack
 import com.gentalha.motiveme.ui.theme.GreyNeutral
@@ -31,7 +32,7 @@ import com.gentalha.motiveme.ui.theme.Pink80
 @Composable
 fun QuoteCard(
     modifier: Modifier = Modifier,
-    text: String = QuoteCache.positiveMessages.random().message,
+    quote: QuoteModel = QuoteCache.positiveMessages.random(),
     favoriteOnClick: (Boolean) -> Unit,
     sharedOnClick: (String) -> Unit
 ) {
@@ -52,7 +53,7 @@ fun QuoteCard(
         ) {
             val (quoteText, favoriteBtn, shareBtn) = createRefs()
             Text(
-                text = "\" \n $text \n \"",
+                text = "\" \n ${quote.message} \n \"",
                 style = TextStyle(
                     fontFamily = FontFamily.Serif,
                     fontWeight = FontWeight.Bold,
@@ -75,7 +76,8 @@ fun QuoteCard(
                     bottom.linkTo(parent.bottom)
                     start.linkTo(quoteText.start)
                 },
-                onClick = (favoriteOnClick)
+                onClick = (favoriteOnClick),
+                isFavorite = quote.isFavorite
             )
 
             IconButton(
@@ -83,7 +85,7 @@ fun QuoteCard(
                     end.linkTo(quoteText.end)
                     bottom.linkTo(favoriteBtn.bottom)
                 },
-                onClick = { sharedOnClick(text) }) {
+                onClick = { sharedOnClick(quote.message) }) {
                 Icon(
                     imageVector = Icons.Default.Share,
                     contentDescription = "shared button",

@@ -16,12 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.gentalha.motiveme.feature.quote.cache.QuoteCache
+import com.gentalha.motiveme.feature.quote.presentation.model.QuoteModel
 import com.gentalha.motiveme.ui.theme.Black
 
 @Preview(showBackground = true)
 @Composable
 fun QuoteConstraint(
-    quote: String = QuoteCache.positiveMessages.random().message,
+    quote: QuoteModel = QuoteCache.positiveMessages.random(),
     newQuoteClick: () -> Unit = {},
     favoriteOnClick: (Boolean) -> Unit = {},
     shareOnClick: (String) -> Unit = {},
@@ -40,7 +41,7 @@ fun QuoteConstraint(
                 bottom.linkTo(refreshBtn.top)
                 width = Dimension.fillToConstraints
             },
-            text = quote,
+            quote = quote,
             favoriteOnClick = (favoriteOnClick),
             sharedOnClick = (shareOnClick)
         )
