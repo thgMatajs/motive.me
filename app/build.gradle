@@ -88,6 +88,12 @@ dependencies {
     //endregion
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta"
 
+    //region room
+    implementation "androidx.room:room-runtime:2.5.2"
+    annotationProcessor "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    //endregion
+
 }
 
 kapt {
