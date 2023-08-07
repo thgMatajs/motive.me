@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.gentalha.motiveme.feature.quote.cache.dao.QuoteDao
 import com.gentalha.motiveme.feature.quote.cache.database.QuoteDatabase
+import com.gentalha.motiveme.feature.quote.cache.model.HashtagConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +19,9 @@ object CacheModule {
     @Provides
     @Singleton
     fun provideQuoteDatabase(@ApplicationContext context: Context): QuoteDatabase {
-        return Room.databaseBuilder(context, QuoteDatabase::class.java, "quotes-db").build()
+        return Room.databaseBuilder(context, QuoteDatabase::class.java, "quotes-db")
+            .addTypeConverter(HashtagConverter())
+            .build()
     }
 
     @Provides
