@@ -31,11 +31,20 @@ fun QuoteConstraint(
 ) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         var showSnackBar by remember { mutableStateOf(showSnack) }
-        val (quoteCard, refreshBtn, snackBar) = createRefs()
+        val (quoteCard, refreshBtn, bannerAd, snackBar) = createRefs()
+
+        BannerAd(
+            modifier = Modifier.constrainAs(bannerAd) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start, margin = 16.dp)
+                end.linkTo(parent.end, margin = 16.dp)
+            },
+            adId = "ca-app-pub-3940256099942544/6300978111"
+        )
 
         QuoteCard(
             modifier = Modifier.constrainAs(quoteCard) {
-                top.linkTo(parent.top)
+                top.linkTo(bannerAd.bottom)
                 start.linkTo(parent.start, margin = 16.dp)
                 end.linkTo(parent.end, margin = 16.dp)
                 bottom.linkTo(refreshBtn.top)
