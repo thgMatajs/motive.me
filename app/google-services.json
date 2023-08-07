@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "816905814799",
+    "project_id": "motive-me-2023",
+    "storage_bucket": "motive-me-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816905814799:android:ea7679ab7eec011acef47a",
+        "android_client_info": {
+          "package_name": "com.gentalha.motiveme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816905814799-21pcuij3ef1pthr4t0m2178nr207lscb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gentalha.motiveme",
+            "certificate_hash": "95730677dd4dfb13f9ae551f813a64cd0456074f"
+          }
+        },
+        {
+          "client_id": "816905814799-ci203lnfq2lkrjge4gdsn64av6f9cp9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnCfJ_PXd35b9uMMqhNqmawogakWEhxaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816905814799-ci203lnfq2lkrjge4gdsn64av6f9cp9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
