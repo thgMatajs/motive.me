@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 interface OpenAIService {
 
-    @POST("v1/completions")
+    @POST("v1/chat/completions")
     suspend fun getCompletions(@Body prompt: OpenAIPrompt): OpenAIResponse
 }

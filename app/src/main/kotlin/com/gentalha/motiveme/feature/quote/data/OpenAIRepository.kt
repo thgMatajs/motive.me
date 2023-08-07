@@ -13,13 +13,11 @@ class OpenAIRepository @Inject constructor(
     private val quoteDao: QuoteDao
 ) {
 
-    suspend fun getMessage(messageType: String): QuoteModel {
-        return service.getCompletions(OpenAIPrompt()).choices.first().run {
-            val json = text
-            val quoteCache = Gson().fromJson(json, QuoteCacheModel::class.java)
+    suspend fun getMessage(messageType: String): Result<QuoteModel> {
+        return service.getCompletions(OpenAIPrompt()).choices.first().runCatching {
+            val quoteCache = Gson().fromJson(message.content, QuoteCacheModel::class.java)
             quoteDao.add(quoteCache)
-            println("THG_LOG cache size: ${quoteDao.get().size}")
-            quoteDao.get().random().toModel()
+            quoteCache.toModel()
         }
     }
 
@@ -31,7 +29,7 @@ class OpenAIRepository @Inject constructor(
 }
 
 fun QuoteCacheModel.toModel() =
-    QuoteModel(this.id, this.message, this.author, listOf(), this.isFavorite)
+    QuoteModel(this.id, this.message, this.author, this.hashtags, this.isFavorite)
 
 fun QuoteModel.toCache() =
-    QuoteCacheModel(this.id, this.message, this.author, this.isFavorite)
+    QuoteCacheModel(this.id, this.message, this.author, this.hashtags, this.isFavorite)

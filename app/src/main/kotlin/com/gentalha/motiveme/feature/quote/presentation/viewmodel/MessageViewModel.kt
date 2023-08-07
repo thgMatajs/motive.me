@@ -24,7 +24,7 @@ class MessageViewModel @Inject constructor(
     fun getMessage() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.postValue(MessageUiState.Loading)
-            runCatching { repository.getMessage("") }
+            repository.getMessage("")
                 .onSuccess {
                     println("THG_LOG --> QUOTE: $it")
                     _uiState.postValue(MessageUiState.Success(it))
