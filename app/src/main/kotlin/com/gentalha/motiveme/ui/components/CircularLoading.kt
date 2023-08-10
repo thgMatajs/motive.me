@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import com.gentalha.motiveme.ui.theme.Black
 
 @Composable
-fun CircularLoading(modifier: Modifier) {
+fun CircularLoading() {
     Box(
         modifier = Modifier.fillMaxSize().background(Black),
         contentAlignment = Alignment.Center,

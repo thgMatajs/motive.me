@@ -42,7 +42,7 @@ fun QuoteConstraint(
                 width = Dimension.fillToConstraints
             },
             quote = quote,
-            favoriteOnClick = (favoriteOnClick),
+            favoriteOnClick = { favoriteOnClick(it) },
             sharedOnClick = (shareOnClick)
         )
 

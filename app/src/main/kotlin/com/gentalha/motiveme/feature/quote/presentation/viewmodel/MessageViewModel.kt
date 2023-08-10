@@ -18,8 +18,11 @@ class MessageViewModel @Inject constructor(
     private val repository: OpenAIRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableLiveData<MessageUiState>(MessageUiState.Empty)
-    val uiState: LiveData<MessageUiState> get() = _uiState
+    private val _uiState = MutableLiveData<MessageUiState<QuoteModel>>()
+    val uiState: LiveData<MessageUiState<QuoteModel>> get() = _uiState
+
+    private val _favoriteUiState = MutableLiveData<MessageUiState<List<QuoteModel>>>()
+    val favoriteUiState: LiveData<MessageUiState<List<QuoteModel>>> get() = _favoriteUiState
 
     fun getMessage() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,6 +46,25 @@ class MessageViewModel @Inject constructor(
     fun update(quote: QuoteModel) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.update(quote)
+        }
+    }
+
+    fun getFavorites() {
+        _favoriteUiState.postValue(MessageUiState.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getFavorites()
+                .onSuccess {
+                    _favoriteUiState.postValue(
+                        if (it.isEmpty()) {
+                            MessageUiState.Empty
+                        } else {
+                            MessageUiState.Success(it)
+                        }
+                    )
+                }
+                .onFailure {
+                    _favoriteUiState.postValue(MessageUiState.Failure(it))
+                }
         }
     }
 }

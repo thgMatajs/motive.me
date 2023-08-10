@@ -1,10 +1,10 @@
 package com.gentalha.motiveme.feature.quote.presentation.model
 
-sealed class MessageUiState {
-    class Success(val quote: QuoteModel) : MessageUiState()
-    class Failure(val error: Throwable) : MessageUiState()
+sealed class MessageUiState<out T> {
+    class Success<T>(val data: T) : MessageUiState<T>()
+    class Failure(val error: Throwable) : MessageUiState<Nothing>()
 
-    object Loading : MessageUiState()
+    object Loading : MessageUiState<Nothing>()
 
-    object Empty : MessageUiState()
+    object Empty : MessageUiState<Nothing>()
 }

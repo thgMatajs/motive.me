@@ -20,7 +20,7 @@ fun BottomNavHost(navController: NavHostController, viewModel: MessageViewModel)
             QuoteScreen(viewModel = viewModel)
         }
         composable(BottomNavigationRoutes.Favorite.name) {
-            FavoriteScreen()
+            FavoriteScreen(viewModel)
         }
         composable(BottomNavigationRoutes.Profile.name) {
             ProfileScreen()

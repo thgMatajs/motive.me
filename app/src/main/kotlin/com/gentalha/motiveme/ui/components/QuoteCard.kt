@@ -76,7 +76,7 @@ fun QuoteCard(
                     bottom.linkTo(parent.bottom)
                     start.linkTo(quoteText.start)
                 },
-                onClick = (favoriteOnClick),
+                onClick = { favoriteOnClick(it) },
                 isFavorite = quote.isFavorite
             )
 

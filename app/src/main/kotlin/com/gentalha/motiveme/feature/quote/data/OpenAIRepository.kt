@@ -17,7 +17,7 @@ class OpenAIRepository @Inject constructor(
         return service.getCompletions(OpenAIPrompt()).choices.first().runCatching {
             val quoteCache = Gson().fromJson(message.content, QuoteCacheModel::class.java)
             quoteDao.add(quoteCache)
-            quoteCache.toModel()
+            quoteDao.get().random().toModel()
         }
     }
 
@@ -25,6 +25,13 @@ class OpenAIRepository @Inject constructor(
         kotlin.runCatching { quoteDao.update(quoteModel.toCache()) }
             .onSuccess { println("THG_LOG CACHE_UPDATE --> SUCCESS") }
             .onFailure { println("THG_LOG CACHE_UPDATE --> ERROR") }
+    }
+
+    suspend fun getFavorites(): Result<List<QuoteModel>> {
+        return quoteDao.getFavorites()
+            .runCatching { map { it.toModel() } }
+            .onSuccess { println("THG_LOG CACHE_getFavorites --> SUCCESS") }
+            .onFailure { error -> println("THG_LOG CACHE_getFavorites --> ERROR: ${error.message}") }
     }
 }
 

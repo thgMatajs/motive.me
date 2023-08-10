@@ -11,10 +11,10 @@ import com.gentalha.motiveme.feature.quote.cache.model.QuoteCacheModel
 interface QuoteDao {
 
     @Query("SELECT * FROM quotes")
-    fun get(): List<QuoteCacheModel>
+    suspend fun get(): List<QuoteCacheModel>
 
     @Query("SELECT * FROM quotes WHERE isFavorite = 1")
-    fun getFavorites(): List<QuoteCacheModel>
+    suspend fun getFavorites(): List<QuoteCacheModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun add(quote: QuoteCacheModel)
