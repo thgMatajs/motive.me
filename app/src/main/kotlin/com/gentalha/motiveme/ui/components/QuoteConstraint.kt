@@ -31,23 +31,14 @@ fun QuoteConstraint(
 ) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         var showSnackBar by remember { mutableStateOf(showSnack) }
-        val (quoteCard, refreshBtn, bannerAd, snackBar) = createRefs()
-
-        BannerAd(
-            modifier = Modifier.constrainAs(bannerAd) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start, margin = 16.dp)
-                end.linkTo(parent.end, margin = 16.dp)
-            },
-            adId = "ca-app-pub-3940256099942544/6300978111"
-        )
+        val (quoteCard, refreshBtn, snackBar) = createRefs()
 
         QuoteCard(
             modifier = Modifier.constrainAs(quoteCard) {
-                top.linkTo(bannerAd.bottom)
+                top.linkTo(parent.top)
                 start.linkTo(parent.start, margin = 16.dp)
                 end.linkTo(parent.end, margin = 16.dp)
-                bottom.linkTo(refreshBtn.top)
+                bottom.linkTo(parent.bottom)
                 width = Dimension.fillToConstraints
             },
             quote = quote,
@@ -58,7 +49,7 @@ fun QuoteConstraint(
         FloatingActionButton(
             onClick = { newQuoteClick() },
             modifier = Modifier.constrainAs(refreshBtn) {
-                bottom.linkTo(if (showSnackBar) snackBar.top else parent.bottom, margin = 24.dp)
+                top.linkTo(quoteCard.bottom, margin = 16.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }) {
