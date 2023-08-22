@@ -41,9 +41,8 @@ class MainActivity : ComponentActivity() {
                             )
                         },
                         bottomBar = { BottomNavigationBar(navController) }
-                    ) {
-                        BottomNavHost(navController = navController, viewModel = viewModel)
-                        it.calculateBottomPadding()
+                    ) { padding ->
+                        BottomNavHost(navController = navController, viewModel = viewModel, padding)
                     }
                 }
 

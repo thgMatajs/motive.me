@@ -35,7 +35,7 @@ fun FavoriteScreen(viewModel: MessageViewModel) {
             }
 
             is MessageUiState.Success<List<QuoteModel>> -> {
-                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp, vertical = 80.dp)) {
+                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
                     items(it.data, key = { key -> key.id }) { quote ->
                         QuoteCard(quote = quote, favoriteOnClick = { favorite ->
                             viewModel.update(quote.copy(isFavorite = favorite))

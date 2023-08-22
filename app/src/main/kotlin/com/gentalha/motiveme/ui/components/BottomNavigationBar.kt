@@ -32,19 +32,22 @@ fun BottomNavigationBar(
 ) {
     val navItems = listOf(
         BottomNavigationItem(
-            BottomNavigationRoutes.Quote.name,
+            BottomNavigationRoutes.Quote.label,
             Icons.Filled.FormatQuote,
-            Icons.Outlined.FormatQuote
+            Icons.Outlined.FormatQuote,
+            BottomNavigationRoutes.Quote.route
         ),
         BottomNavigationItem(
-            BottomNavigationRoutes.Favorite.name,
+            BottomNavigationRoutes.Favorite.label,
             Icons.Filled.Favorite,
-            Icons.Outlined.FavoriteBorder
+            Icons.Outlined.FavoriteBorder,
+            BottomNavigationRoutes.Favorite.route
         ),
         BottomNavigationItem(
-            BottomNavigationRoutes.Profile.name,
+            BottomNavigationRoutes.Profile.label,
             Icons.Filled.Person,
-            Icons.Outlined.Person
+            Icons.Outlined.Person,
+            BottomNavigationRoutes.Profile.route
         )
     )
     var selectedItemIndex by rememberSaveable {
@@ -62,12 +65,17 @@ fun BottomNavigationBar(
                 selected = index == selectedItemIndex,
                 onClick = {
                     selectedItemIndex = index
-                    navController.navigate(item.title)
+                    navController.navigate(item.route) {
+                        popUpTo(navController.graph.id) {
+                            saveState = true
+                            inclusive = true
+                        }
+                    }
                 },
                 icon = {
                     Icon(
                         imageVector = if (selectedItemIndex == index) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = item.title
+                        contentDescription = item.route
                     )
                 },
                 label = {
